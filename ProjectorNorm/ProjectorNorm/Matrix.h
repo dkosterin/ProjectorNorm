@@ -16,7 +16,6 @@ public:
 	Vector operator[](int i);
 	double Determinant();
 	Matrix& Inverse();
-	//void diag();
 	friend std::ostream& operator<< (std::ostream &out, const Matrix &m);
 	~Matrix();
 };
