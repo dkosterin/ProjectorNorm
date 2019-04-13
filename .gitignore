@@ -6,6 +6,6 @@ ProjectorNorm/ProjectorNorm/ProjectorNorm.vcxproj.filters
 ProjectorNorm/ProjectorNorm/ProjectorNorm.vcxproj
 ProjectorNorm/Debug/ProjectorNorm.pdb
 ProjectorNorm/Debug/ProjectorNorm.ilk
-ProjectorNorm/Debug/ProjectorNorm.exe
 ProjectorNorm/.vs/ProjectorNorm/v15/Browse.VC.db
 ProjectorNorm/.vs/ProjectorNorm/v15/.suo
+*.ipch

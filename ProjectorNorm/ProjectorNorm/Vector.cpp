@@ -6,6 +6,12 @@ Vector::Vector()
 {
 }
 
+Vector::Vector(int n)
+{
+	this->n = n;
+	this->vector = new double[n];
+}
+
 Vector::Vector(double a, int n)
 {
 	this->n = n;
@@ -16,14 +22,28 @@ Vector::Vector(double a, int n)
 	}
 }
 
-Vector::Vector(double* vector, int n)
+Vector::Vector(const Vector &v)
 {
-	this->n = n;
-	this->vector = new double[n];
+	n = v.n;
+	vector = new double[n];
 	for (int i = 0; i < n; i++)
 	{
-		this->vector[i] = vector[i];
+		vector[i] = v.vector[i];
 	}
+}
+
+void Vector::setValue(double a, int i) 
+{
+	vector[i] = a;
+}
+
+Vector& Vector::operator=(const Vector &v)
+{
+	n = v.n;
+	vector = new double[n];
+	for (int i = 0; i < v.n; i++)
+		vector[i] = v.vector[i];
+	return *this;
 }
 
 bool Vector::operator==(const Vector &v)
@@ -38,7 +58,7 @@ bool Vector::operator==(const Vector &v)
 
 double Vector::operator[](int i)
 {
-	return this->vector[i];
+	return vector[i];
 }
 
 std::ostream& operator<< (std::ostream &out, const Vector &v)
