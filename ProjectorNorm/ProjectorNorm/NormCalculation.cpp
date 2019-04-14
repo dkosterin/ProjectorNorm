@@ -77,7 +77,8 @@ double NormCalculation::findMinNorm(Matrix &res)
 			//cout << i << " " << points[i] << endl;
 		}
 		Matrix m(points, n + 1);
-		if (m.Determinant() == 0)
+		double det = m.Determinant();
+		if (abs(det) < 0.000001)
 			continue;
 		double p = getNorm(m);
 		if (p < min)
@@ -98,7 +99,7 @@ Vector NormCalculation::getPoint(int i)
 		c *= 10;
 		count++;
 	}
-	count *= 10;
+	count = pow(10, count);
 
 	Vector res(0, n + 1);
 	int k = n - 1;

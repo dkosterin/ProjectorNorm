@@ -5,11 +5,10 @@ class NormCalculation
 {
 private:
 	Vector * ver;
-	int n, countVer;
+	int* a;
+	int n, countVer, countPoints;
 	double h;
 public:
-	int* a;
-	int countPoints;
 	NormCalculation();
 	NormCalculation(int n, double h);
 	Vector& getVer(int i);

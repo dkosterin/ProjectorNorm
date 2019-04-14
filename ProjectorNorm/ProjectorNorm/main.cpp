@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-	NormCalculation p(2, 0.5);
+	NormCalculation p(2, 0.1);
 	Vector* points = new Vector[3];
 	Vector p1(0, 3);
 	p1.setValue(1, 2);
@@ -19,6 +19,9 @@ int main() {
 	points[1] = p2;
 	points[2] = p3;
 
+	for (int i = 0; i < 20; i++)
+		cout << p.getPoint(i) << endl;
+
 	Matrix m(points, 3);
 	cout << m << endl;
 	double res = p.getNorm(m);
@@ -27,7 +30,6 @@ int main() {
 	double min = p.findMinNorm(r);
 	cout << min << endl;
 	cout << r << endl;
-	//delete[] points;
 	system("pause");
 	return 0;
 }
