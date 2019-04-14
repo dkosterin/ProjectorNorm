@@ -6,14 +6,14 @@
 using namespace std;
 
 int main() {
-	NormCalculation p(2, 0.01);
+	NormCalculation p(2, 0.5);
 	Vector* points = new Vector[3];
-	Vector p1(1, 3);
-	p1.setValue(0, 1);
+	Vector p1(0, 3);
+	p1.setValue(1, 2);
 	Vector p2(1, 3);
-	p2.setValue(0, 0);
-	Vector p3(0, 3);
-	p3.setValue(1, 2);
+	p2.setValue(0, 1);
+	Vector p3(1, 3);
+	p3.setValue(0.5, 0);
 
 	points[0] = p1;
 	points[1] = p2;
@@ -23,7 +23,11 @@ int main() {
 	cout << m << endl;
 	double res = p.getNorm(m);
 	cout << res << endl;
-	delete[] points;
+	Matrix r(3);
+	double min = p.findMinNorm(r);
+	cout << min << endl;
+	cout << r << endl;
+	//delete[] points;
 	system("pause");
 	return 0;
 }

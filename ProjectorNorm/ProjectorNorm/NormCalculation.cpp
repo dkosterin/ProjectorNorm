@@ -4,6 +4,8 @@
 #include<cmath>
 #include<iostream>
 
+using namespace std;
+
 Vector& NormCalculation::getVer(int i)
 {
 	Vector* res(new Vector(0, n));
@@ -27,6 +29,11 @@ NormCalculation::NormCalculation(int n, double h)
 	for (int i = 0; i < countVer; i++)
 		ver[i] = getVer(i);
 	this->h = h;
+	countPoints = (int)(1 / h) + 1;
+	countPoints = pow(countPoints, n);
+	a = new int[countPoints];
+	for (int i = 0; i < countPoints; i++)
+		a[i] = i;
 }
 
 double NormCalculation::LambdaFunction(Vector x, Matrix &inv, int j)
@@ -56,6 +63,77 @@ double NormCalculation::getNorm(Matrix &points)
 	}
 	return max;
 }
+
+double NormCalculation::findMinNorm(Matrix &res)
+{
+	Vector* points = new Vector[n + 1];
+	double min = 10000000;
+	do
+	{
+		for (int i = 0; i < n + 1; i++)
+		{
+			points[i] = getPoint(a[i]);
+			// TODO: ѕроверка точки на принадлежность границе
+			//cout << i << " " << points[i] << endl;
+		}
+		Matrix m(points, n + 1);
+		if (m.Determinant() == 0)
+			continue;
+		double p = getNorm(m);
+		if (p < min)
+		{
+			res = m;
+			min = p;
+		}
+	} while (nextSet());
+	return min;
+}
+
+Vector NormCalculation::getPoint(int i)
+{
+	int count = 0;
+	double c = h;
+	while ((int)c == 0)
+	{
+		c *= 10;
+		count++;
+	}
+	count *= 10;
+
+	Vector res(0, n + 1);
+	int k = n - 1;
+	for (int j = 0; j < i; j++)
+	{
+		if (res[k] == 1)
+		{
+			while (k >= 0 && res[k] == 1)
+			{
+				res.setValue(0, k);
+				k--;
+			}
+			res.setValue(round((res[k] + h) * count) / count, k);
+			k = n - 1;
+		}
+		else res.setValue(round((res[k] + h) * count) / count, k);
+	}
+	res.setValue(1, n);
+	return res;
+}
+
+bool NormCalculation::nextSet()
+{
+	int k = n + 1;
+	for (int i = k - 1; i >= 0; --i)
+		if (a[i] < countPoints - k + i)
+		{
+			++a[i];
+			for (int j = i + 1; j < k; ++j)
+				a[j] = a[j - 1] + 1;
+			return true;
+		}
+	return false;
+}
+
 
 NormCalculation::~NormCalculation()
 {
